@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using College.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using College.Infra.Data;
 
 namespace College
 {
@@ -41,6 +42,9 @@ namespace College
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<CollegeDBContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("CollegeDBConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
